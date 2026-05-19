@@ -11,17 +11,24 @@ model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
+  board    Board[]
 }
 
 model Board {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
+  userId    Int
+  user      User  @relation(fields:[userId],references:[id])
+  task      Task[]
 }
 
 model Task {
   id          Int    @id @default(autoincrement())
   title       String
   description String?
-  status      String
+  boardId      Int
+  createdAt    DateTime @default(now())
+  board        Board   @relation(fields:[boardId],references:[id])
+  status       String   @default("pending")
 }

@@ -6,6 +6,7 @@ const middle=(req,res,next)=>{
         a,
         "sk"
     )
+    req.user=b
     if(a){
 next()
 }
