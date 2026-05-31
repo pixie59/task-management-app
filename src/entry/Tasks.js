@@ -7,7 +7,9 @@ const Tasks = () => {
   const [search,setSearch]=useState("")
   const [tasks,setTasks]=useState([])
   const [title,setTitle]=useState("")
-  const [darkMode,setDarkMode]=useState(false)
+  const [darkMode,setDarkMode]=useState(()=>{
+return localStorage.getItem("darkMode")==="true"
+})
   const [sortOrder,setSortOrder]=useState("newest")
   const [description,setDescription]=useState("")
   const {id}=useParams()
@@ -28,6 +30,9 @@ const [selectedTask,setSelectedTask]=useState(null)
 useEffect(()=>{
 fetchTasks()
 },[])
+useEffect(()=>{
+localStorage.setItem("darkMode",darkMode)
+},[darkMode])
 const create=async()=>{
   setLoading(true)
 const token=localStorage.getItem("token")
@@ -127,38 +132,46 @@ status:newStatus
 })
 fetchTasks()
 }
-const filteredTasks = sortedTasks.filter((task)=>
-task.title.toLowerCase().includes(search.toLowerCase()) || (task.description || "").toLowerCase().includes(search.toLowerCase())
-)
 const sortedTasks=[...tasks].sort((a,b)=>
 sortOrder==="newest"
 ? new Date(b.createdAt)-new Date(a.createdAt)
 : new Date(a.createdAt)-new Date(b.createdAt)
 )
+const filteredTasks = sortedTasks.filter((task)=>
+task.title.toLowerCase().includes(search.toLowerCase()) || (task.description || "").toLowerCase().includes(search.toLowerCase())
+)
 return (
 <div className={`min-h-screen p-6 ${ darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black" }`}>
+  <div className="flex justify-end mb-4">
+<button
+onClick={()=>setDarkMode(!darkMode)}
+className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition shadow-md"
+>
+{darkMode ? "☀️ Light" : "🌙 Dark"}
+</button>
+</div>
 <h1 className="text-4xl font-bold text-center mb-10">
 Tasks Board
 </h1>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
-<div className="bg-white rounded-3xl shadow-md p-6 text-center">
-<h3 className="text-gray-500 mb-2">
+<div className={`rounded-3xl shadow-md p-6 text-center ${ darkMode ? "bg-gray-800 text-white" : "bg-white" }`}>
+<h3 className={`mb-2 ${ darkMode ? "text-gray-300" : "text-gray-500"}`}>
 📋 Total Tasks
 </h3>
 <p className="text-4xl font-bold">
 {tasks.length}
 </p>
 </div>
-<div className="bg-white rounded-3xl shadow-md p-6 text-center">
-<h3 className="text-gray-500 mb-2">
+<div className={`rounded-3xl shadow-md p-6 text-center ${ darkMode ? "bg-gray-800 text-white" : "bg-white" }`}>
+<h3 className={`mb-2 ${ darkMode ? "text-gray-300" : "text-gray-500"}`}>
 ⚡ In Progress
 </h3>
 <p className="text-4xl font-bold text-blue-600">
 {sortedTasks.filter(task=>task.status==="doing").length}
 </p>
 </div>
-<div className="bg-white rounded-3xl shadow-md p-6 text-center">
-<h3 className="text-gray-500 mb-2">
+<div className={`rounded-3xl shadow-md p-6 text-center ${ darkMode ? "bg-gray-800 text-white" : "bg-white" }`}>
+<h3 className={`mb-2 ${ darkMode ? "text-gray-300" : "text-gray-500"}`}>
 ✅ Completed
 </h3>
 <p className="text-4xl font-bold text-green-600">
@@ -166,7 +179,7 @@ Tasks Board
 </p>
 </div>
 </div>
-<div className="max-w-2xl mx-auto mb-10">
+<div className={`max-w-2xl mx-auto mb-10 p-4 rounded-3xl ${ darkMode ? "bg-gray-800" : "bg-white" }`}>
 <p className="text-center mb-3 text-xl font-bold">
 Project Progress 🚀
 </p>
@@ -192,19 +205,23 @@ tasks.length===0
 )
 } Complete
 </p>
-<div className="bg-white p-8 rounded-3xl shadow-md flex flex-col gap-4 mb-10 max-w-2xl mx-auto">
+<div className={`p-8 rounded-3xl shadow-md flex flex-col gap-4 mb-10 max-w-2xl mx-auto ${ darkMode ? "bg-gray-800" : "bg-white" }`}>
 <input
 value={title}
 type="text"
 placeholder="Enter task title"
 onChange={(e)=>setTitle(e.target.value)}
-className="flex-1 p-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-black"
+className={`flex-1 p-3 rounded-xl border outline-none focus:ring-2 focus:ring-black ${
+darkMode
+? "bg-white text-black border-gray-300"
+: "bg-white text-black border-gray-300"
+}`}
 />
 <textarea
 placeholder="Enter task description"
 value={description}
 onChange={(e)=>setDescription(e.target.value)}
-className="flex-1 p-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-black"
+className="flex-1 p-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-black bg-white text-black"
 />
 <button
 onClick={create} disabled={loading}
@@ -217,7 +234,7 @@ type="text"
 placeholder="🔍 Search tasks..."
 value={search}
 onChange={(e)=>setSearch(e.target.value)}
-className="w-full max-w-2xl mx-auto block p-3 rounded-xl border border-gray-300 mb-8 outline-none focus:ring-2 focus:ring-black"
+className={`w-full max-w-2xl mx-auto block p-3 rounded-xl border mb-8 outline-none ${  darkMode ? "bg-gray-800 text-white border-gray-600" : "bg-white border-gray-300" }`} 
 />
 {
 search &&
@@ -230,10 +247,10 @@ No tasks found for "{search}"
 <select
 value={sortOrder}
 onChange={(e)=>setSortOrder(e.target.value)}
-className="p-3 rounded-xl border border-gray-300 outline-none"
+className="p-3 rounded-xl border border-gray-300 bg-white text-black outline-none"
 >
-<option value="newest">Newest First</option>
-<option value="oldest">Oldest First</option>
+  <option value="newest">Newest First</option>
+  <option value="oldest">Oldest First</option>
 </select>
 <DragDropContext onDragEnd={handleDragEnd}>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -242,7 +259,7 @@ className="p-3 rounded-xl border border-gray-300 outline-none"
 <div
 ref={provided.innerRef}
 {...provided.droppableProps}
-className="bg-gray-50 rounded-3xl p-4 min-h-[500px] shadow-md">
+className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" : "bg-gray-50" }`}>
 <h2 className="text-2xl font-bold mb-6 text-center text-yellow-600">
 📝Todo 
 <span className="ml-2 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
@@ -262,7 +279,7 @@ index={index}
 ref={provided.innerRef}
 {...provided.draggableProps}
 {...provided.dragHandleProps}
-className="bg-white p-5 rounded-2xl shadow-md border-l-4 border-yellow-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 mb-4">
+className={`p-5 rounded-2xl shadow-md border-l-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 mb-4 ${ darkMode ? "bg-gray-700 text-white" : "bg-white" }`}>
 <h3 className="text-xl font-semibold">
 {task.title}
 </h3>
@@ -304,7 +321,7 @@ Edit
 <div
 ref={provided.innerRef}
 {...provided.droppableProps}
-className="bg-gray-50 rounded-3xl p-4 min-h-[500px] shadow-md">
+className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" : "bg-gray-50" }`}>
 <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
 ⚡Doing 
 <span className="ml-2 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
@@ -360,7 +377,7 @@ Edit
 <div
 ref={provided.innerRef}
 {...provided.droppableProps}
-className="bg-gray-50 rounded-3xl p-4 min-h-[500px] shadow-md">
+className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" : "bg-gray-50" }`}>
 <h2 className="text-2xl font-bold mb-6 text-center text-green-600">
 ✅Done 
 <span className="ml-2 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
@@ -431,19 +448,23 @@ Delete
 {
 isOpen && (
 <div className="fixed inset-0 bg-black/100 backdrop-blur-lg flex justify-center items-center">
-<div className="bg-white p-8 rounded-3xl w-96 shadow-2xl border border-gray-100">
+<div className={`p-8 rounded-3xl w-96 shadow-2xl ${ darkMode ? "bg-gray-800 text-white" : "bg-white"}`}>
 <h2 className="text-3xl font-bold mb-6">
 Edit Task
 </h2>
 <input
 value={editTitle}
 onChange={(e)=>setEditTitle(e.target.value)}
-className="w-full border p-3 rounded-xl mb-6 outline-none"
+className={`w-full p-3 rounded-xl mb-6 outline-none ${
+  darkMode
+  ? "bg-gray-700 text-white border-gray-600"
+  : "bg-white border-gray-300"
+}`}
 />
 <div className="flex justify-end gap-6 mt-8">
 <button
 onClick={()=>setIsOpen(false)}
-className="text-gray-500">
+className={darkMode ? "text-gray-300" : "text-gray-500"}>
 Cancel
 </button>
 <button
