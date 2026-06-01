@@ -1,3 +1,4 @@
+import socket from "../socket";
 import {useEffect,useState} from "react"
 import {useParams} from "react-router-dom"
 import React from "react"
@@ -28,7 +29,27 @@ const [selectedTask,setSelectedTask]=useState(null)
     setTasks(data)
   }
 useEffect(()=>{
-fetchTasks()
+fetchTasks();
+socket.on("connect",()=>{
+console.log("Connected:",socket.id);
+});
+socket.on("task-added", (task) => {
+  console.log("RECEIVED TASK EVENT", task);
+  fetchTasks();
+});
+socket.on("task-deleted", (id) => {
+  console.log("RECEIVED DELETE EVENT", id);
+  fetchTasks();
+});
+socket.on("task-moved", (task) => {
+  console.log("RECEIVED MOVE EVENT", task);
+  fetchTasks();
+});
+return ()=>{
+socket.off("task-added");
+socket.off("task-deleted");
+socket.off("task-moved");
+};
 },[])
 useEffect(()=>{
 localStorage.setItem("darkMode",darkMode)
@@ -49,6 +70,7 @@ boardId:Number(id)
 })
 })
 const data=await res.json()
+socket.emit("task-added", data);
 console.log(data)
 fetchTasks()
 setTitle("")
@@ -67,6 +89,10 @@ body:JSON.stringify({
 status:"doing"
 })
 })
+socket.emit("task-moved", {
+id:id,
+status:"doing"
+})
 fetchTasks()
 }
 const moveToDone=async(id)=>{
@@ -81,10 +107,14 @@ body:JSON.stringify({
 status:"done"
 })
 })
+socket.emit("task-moved",{
+id:id,
+status:"done"
+})
 fetchTasks()
 }
 const deleteTask=async(id)=>{
-  const confirmDelete=window.confirm("Delete this task?")
+const confirmDelete=window.confirm("Delete this task?")
 if(!confirmDelete) return
 const token=localStorage.getItem("token")
 await fetch(`http://localhost:5000/api/task/${id}`,{
@@ -93,6 +123,7 @@ headers:{
 authorization:token
 }
 })
+socket.emit("task-deleted", id)
 fetchTasks()
 }
 const editTask=(task)=>{
@@ -129,6 +160,10 @@ authorization:token
 body:JSON.stringify({
 status:newStatus
 })
+})
+socket.emit("task-moved",{
+id:taskId,
+status:newStatus
 })
 fetchTasks()
 }
