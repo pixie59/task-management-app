@@ -34,6 +34,7 @@ const createBoard=async()=>{
 console.log(description)
 setLoading(true)
 const token=localStorage.getItem("token")
+console.log("token:",token)
 const res=await fetch("http://localhost:5000/api/board/create-board",{
 method:"POST",
 headers:{

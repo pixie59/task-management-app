@@ -4,6 +4,7 @@ function Login(){
     const [password,setPassword]=useState("")
     const [isSignup,setIsSignup]=useState(false)
     const handleLogin=async()=>{
+        alert("login clicked")
         const response=await fetch(`http://localhost:5000/api/auth/${isSignup ? "signup" : "login"}`,{
         method:"POST",
         headers:{
@@ -22,7 +23,11 @@ console.log("TYPE:", typeof data)
         alert(data)
     }
     else{
-        localStorage.setItem("token",data)
+        console.log("TOKEN VALUE:", data.token)
+        alert ("token:",data.token)
+localStorage.setItem("token", data.token)
+console.log("DATA:", data)
+console.log("DATA TOKEN:", data.token)
         window.location.href="/boards"
     }
     }

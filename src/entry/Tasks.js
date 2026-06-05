@@ -8,6 +8,7 @@ const Tasks = () => {
   const [search,setSearch]=useState("")
   const [tasks,setTasks]=useState([])
   const [title,setTitle]=useState("")
+  const [filterStatus,setFilterStatus]=useState("all")
   const [darkMode,setDarkMode]=useState(()=>{
 return localStorage.getItem("darkMode")==="true"
 })
@@ -173,15 +174,25 @@ sortOrder==="newest"
 : new Date(a.createdAt)-new Date(b.createdAt)
 )
 const filteredTasks = sortedTasks.filter((task)=>
-task.title.toLowerCase().includes(search.toLowerCase()) || (task.description || "").toLowerCase().includes(search.toLowerCase())
-)
+(task.title.toLowerCase().includes(search.toLowerCase()) ||
+(task.description || "").toLowerCase().includes(search.toLowerCase()))
+&&
+(filterStatus==="all" ||task.status===filterStatus))
 return (
 <div className={`min-h-screen p-6 ${ darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black" }`}>
-  <div className="flex justify-end mb-4">
+ <div className="flex justify-end gap-4 mb-4">
+
+<button
+onClick={()=>{
+localStorage.removeItem("token")
+window.location.href="/"
+}}
+className="bg-black text-white px-5 py-2 rounded-xl hover:bg-red-600 transition shadow-md">
+Logout
+</button>
 <button
 onClick={()=>setDarkMode(!darkMode)}
-className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition shadow-md"
->
+className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition shadow-md">
 {darkMode ? "☀️ Light" : "🌙 Dark"}
 </button>
 </div>
@@ -215,6 +226,7 @@ Tasks Board
 </div>
 </div>
 <div className={`max-w-2xl mx-auto mb-10 p-4 rounded-3xl ${ darkMode ? "bg-gray-800" : "bg-white" }`}>
+
 <p className="text-center mb-3 text-xl font-bold">
 Project Progress 🚀
 </p>
@@ -225,21 +237,15 @@ style={{
 width:`${
 tasks.length===0
 ?0
-:(sortedTasks.filter(task=>task.status==="done").length/tasks.length)*100
-}%`
-}}
->
+:(sortedTasks.filter(task=>task.status==="done").length/tasks.length)*100}%`}}>
 </div>
 </div>
-</div>
-<p className="text-center mt-3 text-lg font-semibold">
+<p className="text-center mt-4 text-lg font-semibold">
 {tasks.length===0
 ? "0%"
 : Math.round(
-(sortedTasks.filter(task=>task.status==="done").length/tasks.length)*100
-)
-} Complete
-</p>
+(sortedTasks.filter(task=>task.status==="done").length/tasks.length)*100)}% Complete</p>
+</div>
 <div className={`p-8 rounded-3xl shadow-md flex flex-col gap-4 mb-10 max-w-2xl mx-auto ${ darkMode ? "bg-gray-800" : "bg-white" }`}>
 <input
 value={title}
@@ -271,6 +277,16 @@ value={search}
 onChange={(e)=>setSearch(e.target.value)}
 className={`w-full max-w-2xl mx-auto block p-3 rounded-xl border mb-8 outline-none ${  darkMode ? "bg-gray-800 text-white border-gray-600" : "bg-white border-gray-300" }`} 
 />
+<select
+value={filterStatus}
+onChange={(e)=>setFilterStatus(e.target.value)}
+className="p-3 rounded-xl border border-gray-300 bg-white text-black outline-none mb-8"
+>
+<option value="all">All Tasks</option>
+<option value="todo">Todo</option>
+<option value="doing">Doing</option>
+<option value="done">Done</option>
+</select>
 {
 search &&
 filteredTasks.length===0 && (
@@ -282,7 +298,7 @@ No tasks found for "{search}"
 <select
 value={sortOrder}
 onChange={(e)=>setSortOrder(e.target.value)}
-className="p-3 rounded-xl border border-gray-300 bg-white text-black outline-none"
+className="p-3 rounded-xl border border-gray-300 bg-white text-black outline-none mx-4"
 >
   <option value="newest">Newest First</option>
   <option value="oldest">Oldest First</option>
@@ -301,7 +317,7 @@ className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" 
 {sortedTasks.filter(task=>task.status==="todo").length}
 </span>
 </h2>
-{tasks
+{filteredTasks
 .filter((task)=>task.status==="todo")
 .map((task,index)=>(
 <Draggable
@@ -360,10 +376,10 @@ className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" 
 <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
 ⚡Doing 
 <span className="ml-2 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
-{sortedTasks.filter(task=>task.status==="todo").length}
+{sortedTasks.filter(task=>task.status==="doing").length}
 </span>
 </h2>
-{tasks
+{filteredTasks
 .filter((task)=>task.status==="doing")
 .map((task,index)=>(
 <Draggable
@@ -376,8 +392,8 @@ index={index}
 ref={provided.innerRef}
 {...provided.draggableProps}
 {...provided.dragHandleProps}
-className="bg-white p-5 rounded-2xl shadow-md border-l-4 border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 mb-4">
-<h3 className="text-xl font-semibold">
+className={`p-5 rounded-2xl shadow-md border-l-4 border-blue-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 mb-4 ${ darkMode ? "bg-gray-700 text-white" : "bg-white"}`}>
+<h3 className={`text-sm mt-2 ${darkMode? "text-gray-300": "text-gray-500"}`}>
 {task.title}
 </h3>
 <div className="flex justify-between items-center mt-4">
@@ -416,10 +432,10 @@ className={`rounded-3xl p-4 min-h-[500px] shadow-md ${ darkMode ? "bg-gray-800" 
 <h2 className="text-2xl font-bold mb-6 text-center text-green-600">
 ✅Done 
 <span className="ml-2 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
-{sortedTasks.filter(task=>task.status==="todo").length}
+{sortedTasks.filter(task=>task.status==="done").length}
 </span>
 </h2>
-{tasks
+{filteredTasks
 .filter((task)=>task.status==="done")
 .map((task,index)=>(
 <Draggable
