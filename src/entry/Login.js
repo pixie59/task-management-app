@@ -16,9 +16,6 @@ function Login(){
         })
     })
     const data=await response.json()
-    console.log("LOGIN DATA:", data)
-console.log("TYPE:", typeof data)
-    console.log(data)
     if(data==="Incorrect password" || data==="User does not exist"){
         alert(data)
     }
@@ -26,8 +23,7 @@ console.log("TYPE:", typeof data)
         console.log("TOKEN VALUE:", data.token)
         alert ("token:",data.token)
 localStorage.setItem("token", data.token)
-console.log("DATA:", data)
-console.log("DATA TOKEN:", data.token)
+localStorage.setItem("email",email)
         window.location.href="/boards"
     }
     }

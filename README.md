@@ -1,70 +1,196 @@
-# Getting Started with Create React App
+# Task Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern full-stack task management platform designed to help users organize projects, manage tasks efficiently, and track progress in real time.
 
-## Available Scripts
+Built with React, Express.js, PostgreSQL, Prisma ORM, JWT Authentication, Tailwind CSS, Socket.IO, and Drag-and-Drop functionality.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Task Management App enables users to create project boards, organize tasks into different workflow stages, monitor project progress, and collaborate through real-time updates.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application follows a Kanban-style workflow with dedicated Todo, Doing, and Done columns to provide a clear overview of project status.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Key Features
 
-### `npm run build`
+### Authentication & Security
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Secure User Registration
+* User Login System
+* JWT-Based Authentication
+* Protected API Routes
+* User-Specific Data Access
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Project Boards
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Create Project Boards
+* Edit Existing Boards
+* Delete Boards
+* View All Personal Boards
 
-### `npm run eject`
+### Task Management
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Create Tasks
+* Update Task Details
+* Delete Tasks
+* Move Tasks Across Workflow Stages
+* Drag-and-Drop Task Management
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Analytics & Progress Tracking
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Total Tasks Counter
+* In-Progress Tasks Counter
+* Completed Tasks Counter
+* Dynamic Progress Bar
+* Project Completion Percentage
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### User Experience
 
-## Learn More
+* Dark Mode Support
+* Responsive Design
+* Smooth Animations with Framer Motion
+* Real-Time Updates Using Socket.IO
+* Search Functionality
+* Task Filtering
+* Task Sorting
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Tech Stack
 
-### Code Splitting
+### Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* React
+* Tailwind CSS
+* Framer Motion
+* React Beautiful DnD
+* Socket.IO Client
 
-### Analyzing the Bundle Size
+### Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* Node.js
+* Express.js
+* Prisma ORM
+* PostgreSQL
+* JWT Authentication
+* Socket.IO
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Installation
 
-### Advanced Configuration
+### Clone Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+git clone https://github.com/your-username/task-management-app.git
+cd task-management-app
+```
 
-### Deployment
+### Backend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+cd backend
+npm install
+```
 
-### `npm run build` fails to minify
+Create a `.env` file:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```env
+DATABASE_URL=your_database_url
+```
+
+Run Prisma migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Start the backend server:
+
+```bash
+npm run dev
+```
+
+Backend will run on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Frontend will run on:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## Project Structure
+
+```text
+task-management-app
+│
+├── backend
+│   ├── prisma
+│   ├── routes
+│   ├── middleware
+│   ├── lib
+│   └── server.js
+│
+├── frontend
+│   ├── public
+│   ├── src
+│   ├── components
+│   └── assets
+│
+└── README.md
+```
+
+---
+
+## Future Enhancements
+
+* Due Dates and Deadlines
+* Team Collaboration
+* Task Assignment
+* Notifications System
+* Activity Logs
+* File Attachments
+* User Profiles
+* Cloud Deployment
+
+---
+
+## Learning Outcomes
+
+This project helped strengthen understanding of:
+
+* Full-Stack Application Development
+* REST API Design
+* Authentication and Authorization
+* Database Modeling with Prisma
+* Real-Time Communication using Socket.IO
+* State Management in React
+* Responsive UI Development
+* Modern Web Development Practices
+
+---
+
+## Author
+
+**Hitanshi Singhal**
+
+Developed as part of a Full-Stack Web Development learning journey and portfolio project.
