@@ -191,6 +191,12 @@ className="bg-black text-white px-5 py-2 rounded-xl hover:bg-red-600 transition 
 Logout
 </button>
 <button
+onClick={()=>window.location.href="/profile"}
+className="bg-blue-500 text-white px-5 py-2 rounded-full"
+>
+Profile
+</button>
+<button
 onClick={()=>setDarkMode(!darkMode)}
 className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition shadow-md">
 {darkMode ? "☀️ Light" : "🌙 Dark"}

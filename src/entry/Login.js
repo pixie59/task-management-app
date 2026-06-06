@@ -4,7 +4,6 @@ function Login(){
     const [password,setPassword]=useState("")
     const [isSignup,setIsSignup]=useState(false)
     const handleLogin=async()=>{
-        alert("login clicked")
         const response=await fetch(`http://localhost:5000/api/auth/${isSignup ? "signup" : "login"}`,{
         method:"POST",
         headers:{
@@ -20,8 +19,6 @@ function Login(){
         alert(data)
     }
     else{
-        console.log("TOKEN VALUE:", data.token)
-        alert ("token:",data.token)
 localStorage.setItem("token", data.token)
 localStorage.setItem("email",email)
         window.location.href="/boards"
