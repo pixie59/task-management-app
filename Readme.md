@@ -1,91 +1,109 @@
 # Task Management App
 
-## Description
+## Overview
 
-Task Management App is a collaborative web application designed to help users manage boards and tasks efficiently. The project focuses on implementing secure authentication, protected routes, and scalable backend architecture using modern full-stack technologies.
+Task Management App is a full-stack productivity application that helps users organize their work using boards and tasks. Users can create boards, manage tasks, track progress, and organize workflows through a modern Kanban-style interface.
 
-This project is being developed as part of an internship milestone-based workflow and currently includes authentication and protected dashboard functionality.
+The application includes secure authentication, board and task management, drag-and-drop functionality, search and sorting features, progress tracking, and dark mode support.
 
+---
 
-# Features
+## Features
 
-## Authentication Features
+### Authentication
 
 * User Signup
 * User Login
-* Password Hashing using bcrypt
-* JWT Token Generation
-* Protected Routes using Middleware
-* Authentication Validation
+* Password Hashing with bcrypt
+* JWT Authentication
+* Protected Routes
+* Protected APIs
 
-## Backend Features
+### Board Management
 
-* Express.js API Routes
-* PostgreSQL Database Integration
-* Prisma ORM Queries
-* Middleware-based Route Protection
+* Create Boards
+* Edit Boards
+* Delete Boards
+* Board Descriptions
+* User-specific Boards
 
-## Upcoming Features
+### Task Management
 
-* Boards Management
-* Task Management
-* Drag and Drop Support
-* Real-time Collaboration
-* Dashboard Enhancements
+* Create Tasks
+* Edit Tasks
+* Delete Tasks
+* Task Descriptions
+* Task Status Updates
+* Task Organization by Board
 
+### Productivity Features
 
-# Tech Stack
+* Drag and Drop Task Movement
+* Search Tasks
+* Sort Tasks
+* Progress Tracking
+* Task Statistics Dashboard
+* Empty State Handling
 
-## Frontend
+### User Experience
+
+* Dark Mode
+* Responsive Layout
+* Animated Modals
+* Blur Background Effects
+* Loading States
+* Modern Dashboard UI
+
+---
+
+## Tech Stack
+
+### Frontend
 
 * React
 * Vite
 * JavaScript
+* Tailwind CSS
+* Framer Motion
 
-## Backend
+### Backend
 
 * Node.js
 * Express.js
 
-## Database
+### Database
 
 * PostgreSQL
 * Prisma ORM
 
-## Authentication
+### Authentication
 
 * JWT
 * bcryptjs
 
+---
 
-# Visuals
+## Screenshots
 
-Screenshots and UI previews will be added in future updates as the frontend dashboard and task management system are completed.
+Screenshots and demo previews will be added soon.
 
+---
 
-# Installation
+## Installation
 
-## Requirements
+### Prerequisites
 
-* Node.js installed
-* PostgreSQL installed locally
-* npm package manager
+* Node.js
+* PostgreSQL
+* npm
 
-## Clone Repository
+### Clone Repository
 
 ```bash
 git clone <repository-link>
 ```
 
-## Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## Backend Setup
+### Backend Setup
 
 ```bash
 cd backend
@@ -93,97 +111,97 @@ npm install
 npm run dev
 ```
 
-## Database Setup
-
-1. Create PostgreSQL database locally.
-2. Configure DATABASE_URL in .env file.
-3. Run Prisma migration:
+### Frontend Setup
 
 ```bash
-npx prisma db push
+cd frontend
+npm install
+npm run dev
 ```
 
+### Database Setup
 
-# Usage
+Create a `.env` file inside the backend directory:
 
-## Signup
+```env
+DATABASE_URL="your_postgresql_connection_string"
+```
 
-Users can create an account using email and password.
-
-## Login
-
-Registered users can log in securely using JWT authentication.
-
-## Protected Dashboard
-
-Authenticated users can access protected dashboard routes using generated tokens.
-
-
-# Project Structure
+Run:
 
 ```bash
+npx prisma migrate dev
+```
+
+---
+
+## Project Structure
+
+```text
 frontend/
+├── src/
+│   ├── entry/
+│   ├── components/
+
 backend/
- ├── prisma/
- ├── routes/
- ├── authMw.js
- ├── server.js
+├── prisma/
+├── routes/
+├── lib/
+├── authMw.js
+├── server.js
 ```
 
+---
 
-# Authentication Flow
+## Authentication Flow
 
 ```text
 Signup
 ↓
-Hash Password using bcrypt
+Password Hashing (bcrypt)
 ↓
 Store User in PostgreSQL
 ↓
 Login
 ↓
-Verify Password
+JWT Generation
 ↓
-Generate JWT Token
+Protected Routes
 ↓
-Verify Token using Middleware
-↓
-Access Protected Dashboard
+Access Boards & Tasks
 ```
 
-# Roadmap
+---
 
-## Week 1
+## Future Improvements
 
-* Authentication System
-* JWT Middleware
-* Protected Dashboard
-
-## Week 2
-
-* Boards API
-* Dashboard Integration
-* Board Management
-
-## Future Goals
-
-* Drag and Drop Tasks
-* Real-time Features
+* Custom Delete Confirmation Modals
+* Due Dates
 * Team Collaboration
-* Deployment
+* Real-time Updates
+* Notifications
+* Cloud Deployment
 
+---
 
-# Contributing
+## Author
 
-This project is currently being developed as part of an internship program. Contributions and suggestions for improvements are welcome.
+Developed by Hitanshi Singhal as part of a Full-Stack Web Development Internship Project.
 
+---
 
+## Project Status
 
-# Author and Acknowledgment
+✅ Authentication Complete
 
-Developed by Hitanshi Singhal as part of a full-stack web development internship project.
+✅ Board Management Complete
 
+✅ Task Management Complete
 
-# Project Status
+✅ Drag & Drop Complete
 
-Project is currently under active development. Authentication system and backend protection have been completed successfully, and board/task management features are currently in progress.
+✅ Search & Sorting Complete
+
+✅ Dark Mode Complete
+
+🚀 Currently being enhanced with deployment and additional productivity features.

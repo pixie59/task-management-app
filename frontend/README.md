@@ -1,16 +1,196 @@
-# React + Vite
+# Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern full-stack task management platform designed to help users organize projects, manage tasks efficiently, and track progress in real time.
 
-Currently, two official plugins are available:
+Built with React, Express.js, PostgreSQL, Prisma ORM, JWT Authentication, Tailwind CSS, Socket.IO, and Drag-and-Drop functionality.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Task Management App enables users to create project boards, organize tasks into different workflow stages, monitor project progress, and collaborate through real-time updates.
 
-## Expanding the ESLint configuration
+The application follows a Kanban-style workflow with dedicated Todo, Doing, and Done columns to provide a clear overview of project status.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Key Features
+
+### Authentication & Security
+
+* Secure User Registration
+* User Login System
+* JWT-Based Authentication
+* Protected API Routes
+* User-Specific Data Access
+
+### Project Boards
+
+* Create Project Boards
+* Edit Existing Boards
+* Delete Boards
+* View All Personal Boards
+
+### Task Management
+
+* Create Tasks
+* Update Task Details
+* Delete Tasks
+* Move Tasks Across Workflow Stages
+* Drag-and-Drop Task Management
+
+### Analytics & Progress Tracking
+
+* Total Tasks Counter
+* In-Progress Tasks Counter
+* Completed Tasks Counter
+* Dynamic Progress Bar
+* Project Completion Percentage
+
+### User Experience
+
+* Dark Mode Support
+* Responsive Design
+* Smooth Animations with Framer Motion
+* Real-Time Updates Using Socket.IO
+* Search Functionality
+* Task Filtering
+* Task Sorting
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React
+* Tailwind CSS
+* Framer Motion
+* React Beautiful DnD
+* Socket.IO Client
+
+### Backend
+
+* Node.js
+* Express.js
+* Prisma ORM
+* PostgreSQL
+* JWT Authentication
+* Socket.IO
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/task-management-app.git
+cd task-management-app
+```
+
+### Backend Setup
+
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=your_database_url
+```
+
+Run Prisma migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Start the backend server:
+
+```bash
+npm run dev
+```
+
+Backend will run on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Frontend will run on:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## Project Structure
+
+```text
+task-management-app
+│
+├── backend
+│   ├── prisma
+│   ├── routes
+│   ├── middleware
+│   ├── lib
+│   └── server.js
+│
+├── frontend
+│   ├── public
+│   ├── src
+│   ├── components
+│   └── assets
+│
+└── README.md
+```
+
+---
+
+## Future Enhancements
+
+* Due Dates and Deadlines
+* Team Collaboration
+* Task Assignment
+* Notifications System
+* Activity Logs
+* File Attachments
+* User Profiles
+* Cloud Deployment
+
+---
+
+## Learning Outcomes
+
+This project helped strengthen understanding of:
+
+* Full-Stack Application Development
+* REST API Design
+* Authentication and Authorization
+* Database Modeling with Prisma
+* Real-Time Communication using Socket.IO
+* State Management in React
+* Responsive UI Development
+* Modern Web Development Practices
+
+---
+
+## Author
+
+**Hitanshi Singhal**
+
+Developed as part of a Full-Stack Web Development learning journey and portfolio project.
