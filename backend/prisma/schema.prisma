@@ -33,4 +33,6 @@ model Task {
   createdAt    DateTime @default(now())
   board        Board   @relation(fields:[boardId],references:[id])
   status       String   @default("pending")
+  dueDate      DateTime?
+  priority     String  @default("medium")
 }

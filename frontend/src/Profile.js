@@ -16,6 +16,10 @@ const navigate = useNavigate()
 useEffect(()=>{
     fetchStats()
     setEmail(localStorage.getItem("email"))},[])
+    useEffect(()=>{
+const token = localStorage.getItem("token")
+if(!token){
+window.location.href="/"}},[])
 const logout=()=>{
 localStorage.removeItem("token")
 localStorage.removeItem("email")

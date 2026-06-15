@@ -8,6 +8,8 @@ const Tasks = () => {
   const [search,setSearch]=useState("")
   const [tasks,setTasks]=useState([])
   const [title,setTitle]=useState("")
+  const [priority,setPriority]=useState("medium")
+  const [dueDate,setDueDate]=useState("")
   const [filterStatus,setFilterStatus]=useState("all")
   const [darkMode,setDarkMode]=useState(()=>{
 return localStorage.getItem("darkMode")==="true"
@@ -27,6 +29,7 @@ const [selectedTask,setSelectedTask]=useState(null)
       }
   })
     const data=await res.json()
+    console.log(data)
     setTasks(data)
   }
 useEffect(()=>{
@@ -53,6 +56,10 @@ socket.off("task-moved");
 };
 },[])
 useEffect(()=>{
+const token = localStorage.getItem("token")
+if(!token){
+window.location.href="/"}},[])
+useEffect(()=>{
 localStorage.setItem("darkMode",darkMode)
 },[darkMode])
 const create=async()=>{
@@ -67,7 +74,8 @@ authorization:token
 body:JSON.stringify({
 title:title,
 description:description,
-boardId:Number(id)
+boardId:Number(id),
+dueDate
 })
 })
 const data=await res.json()
@@ -280,6 +288,21 @@ value={description}
 onChange={(e)=>setDescription(e.target.value)}
 className="flex-1 p-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-black bg-white text-black"
 />
+<input
+type="date"
+value={dueDate}
+onChange={(e)=>setDueDate(e.target.value)}
+className="w-full border p-3 rounded-xl"
+/>
+<select
+value={priority}
+onChange={(e)=>setPriority(e.target.value)}
+className="w-full border p-3 rounded-xl"
+>
+<option value="high">High</option>
+<option value="medium">Medium</option>
+<option value="low">Low</option>
+</select>
 <button
 onClick={create} disabled={loading}
 className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition disabled:opacity-50">
@@ -350,6 +373,55 @@ className={`p-5 rounded-2xl shadow-md border-l-4 hover:shadow-xl hover:-translat
 <h3 className="text-xl font-semibold">
 {task.title}
 </h3>
+{
+task.priority==="high" ? (
+<span className="bg-red-100 text-red-700 px-2 py-1 rounded-full">
+🔴 High
+</span>
+) :
+task.priority==="medium" ? (
+<span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+🟡 Medium
+</span>
+) : (
+<span className="bg-green-100 text-green-700 px-2 py-1 rounded-full">
+🟢 Low
+</span>
+)
+}
+{
+task.dueDate && (
+<div className="mt-2">
+{
+new Date(task.dueDate).toDateString() === new Date().toDateString()
+? (
+<span className="text-yellow-600 font-semibold">
+🟡 Due Today
+</span>
+)
+: new Date(task.dueDate) < new Date() &&
+task.status !== "done"
+? (
+<span className="text-red-600 font-semibold">
+🔴 Overdue
+</span>
+)
+: (
+<span className="text-green-600 font-semibold">
+🟢 Future
+</span>
+)
+}
+</div>
+)
+}
+{
+task.dueDate && (
+<p className="text-sm text-gray-500 mt-2">
+📅 Due: {new Date(task.dueDate).toLocaleDateString("en-GB")}
+</p>
+)
+}
 <button
 onClick={()=>setDarkMode(!darkMode)}
 className="absolute top-6 right-6 bg-black text-white px-4 py-2 rounded-xl"
@@ -515,7 +587,7 @@ Delete
 </Droppable>
 </div>
 </DragDropContext>
-{
+{ 
 isOpen && (
 <div className="fixed inset-0 bg-black/100 backdrop-blur-lg flex justify-center items-center">
 <div className={`p-8 rounded-3xl w-96 shadow-2xl ${ darkMode ? "bg-gray-800 text-white" : "bg-white"}`}>

@@ -6,6 +6,12 @@ const [editTitle,setEditTitle]=useState("")
 const [showDeleteModal,setShowDeleteModal]=useState(false)
 const [boardToDelete,setBoardToDelete]=useState(null)
 const [selectedBoard,setSelectedBoard]=useState(null)
+const [stats,setStats]=useState({
+totalBoards:0,
+totalTasks:0,
+completedTasks:0,
+pendingTasks:0
+})
 const [boards,setBoards]=useState([])
 const [title,setTitle]=useState("")
 const [description,setDescription]=useState("")
@@ -21,7 +27,12 @@ authorization:token}})
 const data=await response.json()
 setBoards(Array.isArray(data)?data:[])}
 useEffect(()=>{
-fetchBoards()},[])
+fetchBoards()
+fetchStats()},[])
+useEffect(()=>{
+const token = localStorage.getItem("token")
+if(!token){
+window.location.href="/"}},[])
 useEffect(()=>{
 localStorage.setItem("darkMode",darkMode)},[darkMode])
 const createBoard=async()=>{
@@ -76,6 +87,16 @@ body:JSON.stringify({
 title:editTitle})})
 setIsOpen(false)
 fetchBoards()}
+const fetchStats=async()=>{
+const token=localStorage.getItem("token")
+const res=await fetch(
+"http://localhost:5000/api/board/dashboard-stats",
+{
+headers:{
+authorization:token}})
+const data=await res.json()
+setStats(data)
+}
 return(
 <div className={`min-h-screen p-8 ${ darkMode ? "bg-gradient-to-br from-gray-900 to-black text-white" : "bg-gradient-to-br from-gray-100 to-gray-200 text-black" }`}>
 <div className="flex justify-end gap-4 mb-4">
@@ -96,6 +117,40 @@ Logout
 <h1 className="text-5xl font-extrabold text-center mb-10 tracking-tight">
 Boards Dashboard
 </h1>
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div className="bg-white p-4 rounded-2xl shadow text-center">
+<h3 className="text-gray-500 text-sm">
+📋 Boards
+</h3>
+<p className="text-3xl font-bold">
+{stats.totalBoards}
+</p>
+</div>
+<div className="bg-white p-4 rounded-2xl shadow text-center">
+<h3 className="text-gray-500 text-sm">
+📝 Tasks
+</h3>
+<p className="text-3xl font-bold">
+{stats.totalTasks}
+</p>
+</div>
+<div className="bg-white p-4 rounded-2xl shadow text-center">
+<h3 className="text-gray-500 text-sm">
+✅ Done
+</h3>
+<p className="text-3xl font-bold text-green-600">
+{stats.completedTasks}
+</p>
+</div>
+<div className="bg-white p-4 rounded-2xl shadow text-center">
+<h3 className="text-gray-500 text-sm">
+⏳ Pending
+</h3>
+<p className="text-3xl font-bold text-yellow-600">
+{stats.pendingTasks}
+</p>
+</div>
+</div>
 <div
 className={`p-8 rounded-3xl shadow-md flex flex-col gap-5 mb-10 max-w-xl mx-auto ${
 darkMode
@@ -139,9 +194,11 @@ darkMode
 boards.length===0 ? (
 <div className="text-center py-12">
 <div className="text-7xl mb-4">📋</div>
+
 <h2 className="text-3xl font-bold mb-2">
 No Boards Yet
 </h2>
+
 <p className="text-gray-500">
 Create your first board and start organizing your work.
 </p>

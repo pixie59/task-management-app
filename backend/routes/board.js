@@ -88,4 +88,47 @@ console.log(error)
 res.json("Something went very very wrong")
 }
 })
+router.get("/dashboard-stats",authMiddleware,async(req,res)=>{
+try{
+const userId=req.user.id
+const totalBoards=await prisma.board.count({
+where:{
+userId:userId
+}
+})
+const totalTasks=await prisma.task.count({
+where:{
+board:{
+userId:userId
+}
+}
+})
+const completedTasks=await prisma.task.count({
+where:{
+board:{
+userId:userId
+},
+status:"done"
+}
+})
+const pendingTasks=await prisma.task.count({
+where:{
+board:{
+userId:userId
+},
+status:{
+not:"done"
+}
+}
+})
+res.json({
+totalBoards,
+totalTasks,
+completedTasks,
+pendingTasks
+})}
+catch(error){
+console.log(error)
+res.status(500).json("Something went wrong")
+}})
 export default router

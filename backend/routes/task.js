@@ -4,13 +4,15 @@ import authMiddleware from "../authMw.js"
 const router=express.Router()
 router.post("/create-task",authMiddleware,async(req,res)=>{
     try{
-    const{title,description,boardId}=req.body
+    const{title,description,boardId,dueDate,priority}=req.body
     const task=await prisma.task.create({
         data:{
             title:title,
             description:description,
             boardId:boardId,
-            status:"todo"
+            status:"todo",
+            dueDate:dueDate ? new Date(dueDate): null,
+            priority:priority
         }
     })
     res.json(task)}
