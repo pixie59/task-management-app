@@ -1,207 +1,210 @@
-# Task Management App
+🚀 Task Management Application
 
-## Overview
+More than an internship project. A story of persistence, curiosity, and countless debugging sessions.
 
-Task Management App is a full-stack productivity application that helps users organize their work using boards and tasks. Users can create boards, manage tasks, track progress, and organize workflows through a modern Kanban-style interface.
+🌸 About Me
 
-The application includes secure authentication, board and task management, drag-and-drop functionality, search and sorting features, progress tracking, and dark mode support.
+Hi, I'm Hitanshi Singhal.
 
----
+I'm a Computer Science undergraduate and an aspiring Software Engineer who believes the best way to learn is by building.
 
-## Features
+This Task Management Application started as an internship assignment, but somewhere along the way it became much more than that.
 
-### Authentication
+It became:
 
-* User Signup
-* User Login
-* Password Hashing with bcrypt
-* JWT Authentication
-* Protected Routes
-* Protected APIs
+My first large full-stack project.
+My introduction to real-world debugging.
+My lesson in persistence.
+Proof that progress isn't about never failing — it's about refusing to quit.
 
-### Board Management
+✨ Project Overview
 
-* Create Boards
-* Edit Boards
-* Delete Boards
-* Board Descriptions
-* User-specific Boards
+A modern full-stack Task Management Application inspired by tools like Trello and Jira.
 
-### Task Management
+Users can:
 
-* Create Tasks
-* Edit Tasks
-* Delete Tasks
-* Task Descriptions
-* Task Status Updates
-* Task Organization by Board
+🔐 Sign Up & Login securely using JWT Authentication
+📋 Create multiple Boards
+📝 Create, Edit and Delete Tasks
+🎯 Set Task Priority
+📅 Add Due Dates
+🌙 Toggle Dark Mode
+🔍 Search and Filter Tasks
+📊 View Dashboard Statistics
+🔄 Drag and Drop tasks between Todo, Doing and Done
+⚡ Receive Real-Time Updates using Socket.io
+👤 View User Profile and Statistics
 
-### Productivity Features
+🛠 Tech Stack
 
-* Drag and Drop Task Movement
-* Search Tasks
-* Sort Tasks
-* Progress Tracking
-* Task Statistics Dashboard
-* Empty State Handling
+Frontend
 
-### User Experience
+React.js
+Tailwind CSS
+React Router
+Framer Motion
+Socket.io Client
+Hello Pangea Drag & Drop
 
-* Dark Mode
-* Responsive Layout
-* Animated Modals
-* Blur Background Effects
-* Loading States
-* Modern Dashboard UI
+Backend
 
----
+Node.js
+Express.js
+Prisma ORM
+PostgreSQL
 
-## Tech Stack
+Authentication
 
-### Frontend
+JWT (JSON Web Token)
+bcryptjs
 
-* React
-* Vite
-* JavaScript
-* Tailwind CSS
-* Framer Motion
+📂 Project Structure
 
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* PostgreSQL
-* Prisma ORM
-
-### Authentication
-
-* JWT
-* bcryptjs
-
----
-
-## Screenshots
-
-Screenshots and demo previews will be added soon.
-
----
-
-## Installation
-
-### Prerequisites
-
-* Node.js
-* PostgreSQL
-* npm
-
-### Clone Repository
-
-```bash
-git clone <repository-link>
-```
-
-### Backend Setup
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Database Setup
-
-Create a `.env` file inside the backend directory:
-
-```env
-DATABASE_URL="your_postgresql_connection_string"
-```
-
-Run:
-
-```bash
-npx prisma migrate dev
-```
-
----
-
-## Project Structure
-
-```text
 frontend/
-├── src/
-│   ├── entry/
-│   ├── components/
+├── src
+│   ├── entry
+│   │   ├── Login.js
+│   │   ├── Board.js
+│   │   ├── Tasks.js
+│   │   └── Profile.js
+│   └── App.jsx
 
 backend/
-├── prisma/
-├── routes/
-├── lib/
-├── authMw.js
-├── server.js
-```
+├── routes
+│   ├── auth.js
+│   ├── board.js
+│   └── task.js
+├── prisma
+└── server.js
 
----
+🌟 Key Features
 
-## Authentication Flow
-
-```text
-Signup
-↓
-Password Hashing (bcrypt)
-↓
-Store User in PostgreSQL
-↓
-Login
-↓
-JWT Generation
-↓
+Authentication
+User Signup
+User Login
+JWT Token Storage
 Protected Routes
-↓
-Access Boards & Tasks
-```
 
----
+Boards
 
-## Future Improvements
+Create Board
+Board Description
+Board Icons
+Delete Board
 
-* Custom Delete Confirmation Modals
-* Due Dates
-* Team Collaboration
-* Real-time Updates
-* Notifications
-* Cloud Deployment
+Tasks
 
----
+Create Task
+Edit Task
+Delete Task
+Due Dates
+Priority Levels
+Drag and Drop
 
-## Author
+Tasks can be moved between:
+📝 Todo
 
-Developed by Hitanshi Singhal as part of a Full-Stack Web Development Internship Project.
+⬇
 
----
+⚡ Doing
 
-## Project Status
+⬇
 
-✅ Authentication Complete
+✅ Done
+using an interactive drag-and-drop interface.
 
-✅ Board Management Complete
+Dashboard
 
-✅ Task Management Complete
+The dashboard provides:
+Total Boards
+Total Tasks
+Completed Tasks
+Pending Tasks
+Profile
 
-✅ Drag & Drop Complete
+Displays:
+Email
+Total Boards
+Total Tasks
+Member Since
 
-✅ Search & Sorting Complete
+🌑 Dark Mode
+A complete Dark / Light mode experience for improved accessibility and aesthetics.
 
-✅ Dark Mode Complete
+⚡ Real-Time Updates
+Implemented using Socket.io.
 
-🚀 Currently being enhanced with deployment and additional productivity features.
+Users instantly see:
+New Tasks
+Deleted Tasks
+Task Status Changes
+without refreshing the page.
+
+📸 Screenshots
+
+Boards Dashboard
+Watch Here:
+https://drive.google.com/file/d/1BtkisZiWqHfPlWfT3UcuQhjDZMJLW4_C/view?usp=sharing
+
+Tasks Page
+Watch Here:
+https://drive.google.com/file/d/1a26eVn0PuU_fVBFe4YV2Vmgpib84UfDu/view?usp=sharing
+
+Dark Mode
+Watch Here:
+https://drive.google.com/file/d/1E0JR5Fat-aPQePbT-dq_XgsqGhEqpvmZ/view?usp=sharing
+
+🎥 Demo Video
+Watch Here:
+https://drive.google.com/file/d/14PAJbM8ScSqsf46QrXVDloQfNOazLmKt/view?usp=sharing
+
+🌱 Challenges I Faced
+This section is probably the most personal part of this project.
+
+I faced:
+
+JWT authentication issues
+Invalid token and authorization bugs
+Prisma schema and relation errors
+Backend crashes
+Drag and Drop integration issues
+React JSX syntax errors
+Package dependency conflicts
+Real-time synchronization bugs
+
+There were moments when I felt overwhelmed.
+There were moments when I genuinely thought of starting over.
+But every error taught me something.
+Every bug made me a little better.
+And slowly, line by line, the application started working.
+This project reminded me that software engineering isn't about writing perfect code.
+It's about patience.
+It's about resilience.
+And it's about showing up even when things don't work the first time.
+
+💖 What This Project Means To Me
+This is not the cleanest code I will ever write.
+This is not the biggest project I will ever build.
+But this project represents something very important:
+The moment I stopped being afraid of difficult problems.
+
+🔮 Future Improvements
+Shared Boards
+Calendar View
+Export Tasks as PDF
+Activity Timeline
+Team Collaboration
+Notifications Panel
+
+👩‍💻 Author
+
+Hitanshi Singhal
+Computer Science Undergraduate
+Aspiring Software Engineer
+"I may not know everything yet, but I know how to keep going."
+
+🤝 A Small Credit
+
+Special thanks to ChatGPT by OpenAI for acting as a coding companion throughout this journey — helping debug countless errors, explain concepts patiently, and making difficult moments feel a little less impossible.
+
+⭐ If you liked this project, consider giving it a star.

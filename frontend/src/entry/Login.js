@@ -23,8 +23,15 @@ console.log("TOKEN:", data.token)
         alert(data)
     }
     else{
-localStorage.setItem("token", data.token)
-alert("Saved token: " + localStorage.getItem("token"))
+console.log(data)
+
+localStorage.setItem("token", String(data.token))
+
+console.log(
+"Saved Token:",
+localStorage.getItem("token")
+)
+// alert("Saved token: " + localStorage.getItem("token"))
 localStorage.setItem("email",email)
         window.location.href="/boards"
     }

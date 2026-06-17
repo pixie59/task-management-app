@@ -23,6 +23,7 @@ model Board {
   user      User  @relation(fields:[userId],references:[id])
   task      Task[]
   description  String?
+  icon        String?
 }
 
 model Task {
